@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://b5x6ydwbsr85f"]
+
+[ext_resource type="Script" uid="uid://bhfyun7o6rvdb" path="res://scripts/path.gd" id="1_8pfye"]
+[ext_resource type="Script" uid="uid://dpkcmr1l4h5id" path="res://scripts/camera.gd" id="2_hcm31"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8pfye"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_hcm31"]
+sky_material = SubResource("ProceduralSkyMaterial_8pfye")
+
+[sub_resource type="Environment" id="Environment_iwjge"]
+background_mode = 2
+sky = SubResource("Sky_hcm31")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_viyof"]
+
+[sub_resource type="Curve3D" id="Curve3D_viyof"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0)
+}
+point_count = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcm31"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Node3D" type="Node3D" unique_id=1873178064]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1622729938]
+environment = SubResource("Environment_iwjge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401269653]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1289115055]
+transform = Transform3D(70, 0, 0, 0, 0.055, 0, 0, 0, 50, 0, 0, 0)
+mesh = SubResource("CylinderMesh_viyof")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1720868592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4139214, 0)
+top_level = true
+curve = SubResource("Curve3D_viyof")
+script = ExtResource("1_8pfye")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" unique_id=566665237]
+transform = Transform3D(3, 0, 0, 0, 0.2, 0, 0, 0, 3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hcm31")
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="player" type="Node3D" parent="." unique_id=698094863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 150, 0)
+script = ExtResource("2_hcm31")
+
+[node name="Camera3D" type="Camera3D" parent="player" unique_id=1700899307]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
