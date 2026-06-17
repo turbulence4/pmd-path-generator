@@ -29,26 +29,23 @@ func generateTerrain():
 			uvs.append(Vector2(x, z))
 	
 	for z in range(numVertZ - 1):
-		for x in range(numVertX):
+		for x in range(numVertX - 1):
 			var v0 = z * numVertX + x
 			var v1 = v0 + 1
 			var v2 = v0 + numVertX
 			var v3 = v2 + 1
 			
-			indices.append(v0)
 			indices.append(v2)
+			indices.append(v0)
 			indices.append(v1)
 			
-			indices.append(v2)
-			indices.append(v3)
 			indices.append(v1)
+			indices.append(v3)
+			indices.append(v2)
 	
 	surfaceArray[Mesh.ARRAY_VERTEX] = verts
 	surfaceArray[Mesh.ARRAY_TEX_UV] = uvs
 	surfaceArray[Mesh.ARRAY_NORMAL] = normals
 	surfaceArray[Mesh.ARRAY_INDEX] = indices
 	
-	print(verts)
-	print(indices)
-	
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_LINES, surfaceArray)
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surfaceArray)
