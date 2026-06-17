@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cep2q07t31f1n"]
 
+[ext_resource type="Script" uid="uid://btapatu21y7f2" path="res://scripts/regenerateTrailButton.gd" id="1_nt7q6"]
+
 [node name="ui" type="Control" unique_id=2076443334]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nt7q6")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=73881440]
 layout_mode = 0
@@ -17,3 +20,5 @@ offset_bottom = 40.0
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 text = "regenerate path"
+
+[connection signal="pressed" from="MarginContainer/regenerateTrail" to="." method="_on_regenerate_trail_pressed"]

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bhfyun7o6rvdb" path="res://scripts/path.gd" id="1_8pfye"]
 [ext_resource type="Script" uid="uid://dpkcmr1l4h5id" path="res://scripts/camera.gd" id="2_hcm31"]
+[ext_resource type="PackedScene" uid="uid://cep2q07t31f1n" path="res://scenes/ui.tscn" id="3_iwjge"]
+[ext_resource type="Script" uid="uid://b8yshn7c25mrf" path="res://scripts/generateTerrain.gd" id="4_5hxcu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8pfye"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -16,17 +18,12 @@ sky = SubResource("Sky_hcm31")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_viyof"]
-
 [sub_resource type="Curve3D" id="Curve3D_viyof"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
-"tilts": PackedFloat32Array(0)
-}
-point_count = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcm31"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tysku"]
 
 [node name="Node3D" type="Node3D" unique_id=1873178064]
 
@@ -36,10 +33,6 @@ environment = SubResource("Environment_iwjge")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401269653]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1289115055]
-transform = Transform3D(70, 0, 0, 0, 0.055, 0, 0, 0, 50, 0, 0, 0)
-mesh = SubResource("CylinderMesh_viyof")
 
 [node name="Path3D" type="Path3D" parent="." unique_id=1720868592]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4139214, 0)
@@ -63,8 +56,17 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="player" type="Node3D" parent="." unique_id=698094863]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 150, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
 script = ExtResource("2_hcm31")
 
 [node name="Camera3D" type="Camera3D" parent="player" unique_id=1700899307]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="ui" parent="." unique_id=2076443334 instance=ExtResource("3_iwjge")]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=492998519]
+mesh = SubResource("ArrayMesh_tysku")
+script = ExtResource("4_5hxcu")
+
+[connection signal="regenerateTrail" from="ui" to="Path3D" method="_on_ui_regenerate_trail"]
