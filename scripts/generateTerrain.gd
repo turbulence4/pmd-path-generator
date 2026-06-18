@@ -1,10 +1,16 @@
 @tool
 extends MeshInstance3D
 
-var size := 256.0
+var size := 1024.0
 @export_range(4, 256, 4) var resolution := 32:
 	set(newResolution):
 		resolution = newResolution
+		updateMesh()
+
+@export_range(4.0, 128.0, 4.0) var height := 64.0:
+	set(newHeight):
+		material_override.set_shader_parameter("height", height * 2)
+		height = newHeight
 		updateMesh()
 
 @export var noise: FastNoiseLite:
@@ -13,12 +19,8 @@ var size := 256.0
 		if noise:
 			noise.changed.connect(updateMesh)
 
-@export_range(4.0, 128.0, 4.0) var height := 64.0:
-	set(newHeight):
-		height = newHeight
-		updateMesh()
-
 func _ready() -> void:
+	noise.seed = randi()
 	updateMesh()
 
 func getHeight(x: float, z: float) -> float:

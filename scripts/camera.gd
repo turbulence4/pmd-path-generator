@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var speed := 25
-@export var sprintSpeed := speed * 2
+@export var sprintSpeed := speed * 6
 @export var camSpeed := 0.3
 @export var minAngle := -PI/2
 @export var maxAngle := PI/2
