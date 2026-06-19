@@ -1,3 +1,4 @@
 res://scenes/mainTestMap.tscn
 res://shaders/terrainShader.gdshader
+res://scripts/path.gd
 res://scripts/generateTerrain.gd

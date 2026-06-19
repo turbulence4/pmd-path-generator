@@ -9,11 +9,14 @@ var numPoints := int(random.randf_range(15, 150))
 @export var minAngle := -PI/4
 @export var maxAngle := PI/4
 
+@onready var terrain = $"../terrain"
+
 func _ready() -> void:
 	generatePath()
 
-func regenerateTrail():
-	print("lalala")
+func getHeightFromTerrain(x: float, z: float) -> float:
+	#not really sure how i'm going to do this. either shoot a ray down and see where it intersects or get the noise somehow
+	return 0.0
 
 func generatePath():
 	var pathPointX := 0.0
@@ -24,7 +27,7 @@ func generatePath():
 		cumAngle += random.randf_range(minAngle, maxAngle)
 		pathPointX += random.randf_range(minSegLength / $CSGPolygon3D.scale.x, maxSegLength / $CSGPolygon3D.scale.x) * cos(cumAngle)
 		pathPointZ += random.randf_range(minSegLength / $CSGPolygon3D.scale.z, maxSegLength / $CSGPolygon3D.scale.z) * sin(cumAngle)
-		path.curve.add_point(Vector3(pathPointX, 0, pathPointZ), Vector3.ZERO, Vector3.ZERO, i + 1)
+		path.curve.add_point(Vector3(pathPointX, getHeightFromTerrain(pathPointX, pathPointZ), pathPointZ), Vector3.ZERO, Vector3.ZERO, i + 1)
 
 
 func _on_ui_regenerate_trail() -> void:

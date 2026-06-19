@@ -1,0 +1,5 @@
+MeshInstance3D
+RigidBody3D
+CollisionShape3D
+CSGSphere3D
+StaticBody3D

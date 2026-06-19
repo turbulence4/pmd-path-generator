@@ -19,8 +19,13 @@ var size := 1024.0
 		if noise:
 			noise.changed.connect(updateMesh)
 
+@onready var collision = $StaticBody3D/CollisionShape3D
+
 func _ready() -> void:
 	noise.seed = randi()
+	
+	collision.shape = mesh.create_trimesh_shape()
+	
 	updateMesh()
 
 func getHeight(x: float, z: float) -> float:
