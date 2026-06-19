@@ -23,9 +23,7 @@ var size := 1024.0
 
 func _ready() -> void:
 	noise.seed = randi()
-	
 	collision.shape = mesh.create_trimesh_shape()
-	
 	updateMesh()
 
 func getHeight(x: float, z: float) -> float:
